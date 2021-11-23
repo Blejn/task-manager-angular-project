@@ -8,9 +8,9 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule 
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [], //information about service
+  bootstrap: [AppComponent]  //start component
 })
 export class AppModule { }
