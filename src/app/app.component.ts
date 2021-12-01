@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Task } from './task';
 
 
 
@@ -8,8 +9,28 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  
 
 config: { [key:string]: string} | null = null;
+tasks:Task[]=[
+{
+name:'Programowanie',
+deadline:'2021-12-11',
+done: false,
+},
+
+{
+name:'Sprzątanie',
+deadline:'2021-12-12',
+done: false,
+},
+
+{
+  name:'Siłownia',
+deadline:'2021-12-13',
+done: false,
+},
+];
 
 constructor() {
   setTimeout( () => {
@@ -21,4 +42,21 @@ constructor() {
 },500);
 
 }
+
+clearTasks(){
+  this.tasks=[]
+}
+
+
+
+createTask(name: string, deadline:string){
+  const task: Task={
+    name,
+    deadline,
+    done:false,
+  };
+  this.tasks.push(task);
+}
+
+
 }
