@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Task } from './task';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -9,8 +10,9 @@ import { Task } from './task';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  
-
+  editMode = false;
+taskName='Sugerowane zadanie codzienne:odkurzanie';
+taskDate='';
 config: { [key:string]: string} | null = null;
 tasks:Task[]=[
 {
@@ -22,7 +24,7 @@ done: false,
 {
 name:'Sprzątanie',
 deadline:'2021-12-12',
-done: false,
+done: true,
 },
 
 {
@@ -36,10 +38,11 @@ constructor() {
   setTimeout( () => {
   this.config = {
   title:'Lista zadań',
-  footer: 'Lista zadań zbudowana w Angularze',
+  footer: '© Lista zadań zbudowana w Angularze',
   date: new Date().toDateString()
   };
 },500);
+this.sortTasks();
 
 }
 
@@ -49,14 +52,61 @@ clearTasks(){
 
 
 
-createTask(name: string, deadline:string){
+createTask(){
   const task: Task={
-    name,
-    deadline,
-    done:false,
+  name:this.taskName,
+  deadline:this.taskDate,
+  done:false,
   };
   this.tasks.push(task);
+  this.taskName ='';
+  this.taskDate='';
+  this.sortTasks();
+}
+
+switchEditMode(){
+  this.editMode=!this.editMode
+}
+
+markTaskAsDone(task:Task){
+  task.done=true;
+  this.sortTasks();
+
+}
+deleteTask(task:Task){
+  this.tasks=this.tasks.filter(e => e !== task);
+  this.sortTasks();
+}
+private sortTasks(){
+  this.tasks = this.tasks.sort((a:Task,b:Task)=>
+  a.done === b.done ? 0 : a.done ? 1:-1
+  );
+}
 }
 
 
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
